@@ -21,7 +21,7 @@ public class MenuServiceImpl implements MenuManagerService {
     public boolean saveMenuItemWithCategory(MenuItem menuItem,String categoryName) {
         MenuCategory category = menuCategoryRepo.findByCategory(categoryName);
         if(category!=null){
-            menuItem.setCategory(category);
+            menuItem.setCategories(category);
             menuItemRepo.save(menuItem);
             return true;
         }
@@ -47,7 +47,7 @@ public class MenuServiceImpl implements MenuManagerService {
     public boolean createMenu(List<MenuItem> menuItems) {
         boolean allSaved = true;
         for (MenuItem menuItem : menuItems) {
-            boolean saved = saveMenuItemWithCategory(menuItem, menuItem.getCategory().getCategory());
+            boolean saved = saveMenuItemWithCategory(menuItem, menuItem.getCategories().getCategory());
             if (!saved) {
                 allSaved = false;
             }
@@ -97,10 +97,10 @@ public class MenuServiceImpl implements MenuManagerService {
             menuItem.setName(updatedMenuItem.getName());
             menuItem.setDescription(updatedMenuItem.getDescription());
             menuItem.setRate(updatedMenuItem.getRate());
-            String categoryName = updatedMenuItem.getCategory().getCategory();
+            String categoryName = updatedMenuItem.getCategories().getCategory();
             MenuCategory category = menuCategoryRepo.findByCategory(categoryName);
             if (category != null) {
-                menuItem.setCategory(category);
+                menuItem.setCategories(category);
             } else {
                 return false;
             }

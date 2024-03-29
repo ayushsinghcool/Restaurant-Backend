@@ -14,17 +14,26 @@ public class MenuItem {
     private int id;
 
     @Column(unique = true)
-    @NotEmpty(message = "Name cannot be blank or null")
+    @NotEmpty(message = "Name cannot be null or empty")
     private String name;
 
     private String description;
+
+    @NotEmpty(message = "Image url can't be null or empty")
+    private String imageUrl;
+
+    @Column(columnDefinition = "boolean default true")
+    private boolean status = true;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean special;
 
     @Embedded
     private Rate rate;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private MenuCategory category;
+    private MenuCategory categories;
 
     public MenuItem() {
     }
